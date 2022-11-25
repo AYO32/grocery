@@ -1,0 +1,179 @@
+prodCat = ['beverages', 'phoneAccessories','toileteries','pastry','cosmetics']
+prodDict = {'Beverages':['chocolate', 'drinks', 'coffee', 'tea', 'soyDrinks', 'pop', 'soda'],
+                  'PhoneAccessories':['Carrying_case', 'earpiece', 'Screen guards'],
+                  'Toiletries':['Toilet_paper', 'Body Soap', 'Scrubs', 'Body creme', 'Shampoo'],
+                  'Pastry':['Pizza', 'Burger', 'Donuts', 'Muffins', 'Cheesecakes'],
+                  'Cosmetics':['Perfumes', 'vanishes', 'Nail polish', 'Deodorant', 'Facial scrubs'] 
+                  }
+
+prodDict.keys()
+
+dict_keys = (['beverages', 'phoneAccessories', 'toileteries', 'pastry', 'cosmetics'])
+
+prodDict['Beverages'] = ['chocolate', 'drinks', 'coffee', 'tea', 'soyDrinks', 'pop', 'soda']
+prodDict['PhoneAccessories'] = ['Carrying_case', 'earpiece', 'Screen guards']
+prodDict['Toileteries'] = ['Toilet_paper', 'Body Soap', 'Scrubs', 'Body creme', 'Shampoo']
+prodDict['Pastry'] = ['Pizza', 'Burger', 'Donuts', 'Muffins', 'Cheesecakes']
+prodDict['Cosmetics'] = ['Perfumes', 'vanishes', 'Nail polish', 'Deodorant', 'Facial scrubs']
+
+bevInventDict = {'chocolate':5, 'drinks':5, 'coffee':10, 'tea':15, 'SoyDrinks':14, 'pop':0, 'Soda':10}
+pAccInventDict = {'Carrying_case':5, 'earpiece':5, 'Screen guards':10}
+toilInventDict = {'Toilet_paper':5, 'Body Soap':5, 'Scrubs':10, 'Body creme':15, 'Shampoo':14}
+pastInventDict = {'Pizza':5, 'vanishes':5, 'Nail polish':10, 'Deodorant':15, 'Facial Scrubs':14}
+cosInventDict = {'Perfumes':5, 'vanishes':5, 'Nail polish':10, 'Deodorant':15, 'Facial scrubs':14}
+
+inventoryList = ['benInventDict', 'pAccInventDict', 'toilInventDict', 'pastInventDict', 'cosInventDict'] 
+
+prodCheck = 'drinks'
+
+if prodCheck in prodDict['Beverages']:
+    currInvent = bevInventDict[prodCheck]
+    print(currInvent)
+else:
+    print(f'{prodCheck}, not in inventory')
+
+prodCheck = 'earpiece'
+
+if prodCheck in prodDict['PhoneAccessories']:
+    currInvent = pAccInventDict[prodCheck]
+    print(currInvent)
+else:
+    print(f'{prodCheck}, not in inventory')  
+
+prodCheck = 'Scrubs'
+
+if prodCheck in prodDict['Toiletries']:
+    currInvent = toilInventDict[prodCheck]
+    print(currInvent)
+else:
+    print(f'{prodCheck}, not in inventory') 
+
+prodCheck = 'Pizza'
+
+if prodCheck in prodDict['Pastry']:
+    currInvent = pastInventDict[prodCheck]
+    print(currInvent)
+else:
+    print(f'{prodCheck}, not in inventory')      
+
+prodCheck = 'Perfumes'
+
+if prodCheck in prodDict['Cosmetics']:
+    currInvent = cosInventDict[prodCheck]
+    print(currInvent)
+else:
+    print(f'{prodCheck}, not in inventory')       
+
+def checkinventory(prod):
+
+    for k, v in prodDict.items(): 
+
+        category = k
+        prodList = v
+        prodInvent = ''
+        if prod in prodList:
+            if category == 'beverages':
+                print(bevInventDict)
+                prodInvent = bevInventDict[prod]
+                return prodInvent
+            elif category == 'PhoneAccessories':
+                print(pAccInventDict)
+                prodInvent = pAccInventDict[prod]
+                return prodInvent
+            elif category == 'Toiletries':
+                print(toilInventDict)
+                prodInvent = toilInventDict[prod]
+                return prodInvent
+            elif category == 'Pastry':
+                print(pastInventDict)
+                prodInvent = cosInventDict[prod]
+                return prodInvent
+        else:
+            return f'{prod} not found in inventory'  
+
+prodCheck = (input('enter product'))
+
+prodCount = checkinventory(prodCheck)
+print(prodCount)
+print(f'current inventory for {prodCheck} is {prodCount}')
+
+qty = 5
+
+if prodCount > qty:
+    print(prodCount)
+else:
+    print('not enough quantity for this sales')    
+
+# Update inventory
+
+def inventoryUpdater(prod, qty):
+    for k, v in prodDict.items():
+         category = k
+         prodList = v
+
+         if prod in prodList:
+            if category == 'beverages':
+                bevInventDict[prod] = bevInventDict[prod] + qty
+                oldQty = bevInventDict[prod]
+                bevInventDict[prod] += qty
+                print('update successful')
+                return [oldQty, bevInventDict[prod]]
+
+            elif category == 'PhoneAccessories':
+                oldQty = bevInventDict[prod]
+                bevInventDict[prod] += qty
+                print('update successful')
+                return [oldQty, bevInventDict[prod]] 
+
+            elif category == 'Toiletries':
+                oldQty = bevInventDict[prod]
+                bevInventDict[prod] += qty
+                print('update successful')
+                return [oldQty, bevInventDict[prod]]  
+
+            elif category == 'Pastry':
+                oldQty = bevInventDict[prod]
+                bevInventDict[prod] += qty
+                print('update successful')
+                return [oldQty, bevInventDict[prod]]  
+
+            elif category == 'Cosmetics':
+                oldQty = bevInventDict[prod]
+                bevInventDict[prod] += qty
+                print('update successful')
+                return [oldQty, bevInventDict[prod]] 
+            else: 
+                return [f'{prod} not found in inventory, do you want to add a new product?', '...']
+
+newInvent = input('specify item')
+invetQty = int(input('specify qty'))
+
+oldQty, newQty = inventoryUpdater(newInvent, invetQty)
+
+if newQty != '...':
+    print(f'{newInvent} inventory updated from {oldQty} to {newQty}')
+else:
+    print('not found in inventory, do you want to add as new product?')
+
+#function to create new category and corresponding inventory dict
+
+def catCreator(catName, prodList):
+    prodCats = list(prodCats)
+    newdict = {}
+    if catName in prodCats:
+        print(f'Name Conflict: {catName} already exist')
+    else:
+        prodCats.append(catName)
+        prodDict[catName] = prodList
+        inventname = catName[0:3] + 'InventDict'
+
+        if len(prodList)>1:
+            for item in prodList:
+
+                newdict[item] = 0
+        elif len(prodList) ==1:
+            newdict[prodList[0]] = 0
+        else: 
+            print('cannot create inventory, check prodList')
+    return [newdict, prodDict]
+
